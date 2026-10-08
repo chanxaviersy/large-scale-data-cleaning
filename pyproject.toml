@@ -1,0 +1,23 @@
+[project]
+name = "large-scale-data-cleaning"
+version = "0.1.0"
+description = "千万级数据清洗管道，Pandas + multiprocessing 并行处理，性能优化与质量保障"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Xavier Chen", email = "chanxaviersy@gmail.com"},
+]
+readme = "README.md"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+
+[tool.flake8]
+max-line-length = 120
+exclude = [".git", "__pycache__", "build", "dist", "data", "outputs"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]

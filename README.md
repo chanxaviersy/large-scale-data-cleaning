@@ -1,3 +1,11 @@
+<!-- 徽章 -->
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![CI](https://github.com/chanxaviersy/large-scale-data-cleaning/actions/workflows/test.yml/badge.svg)](https://github.com/chanxaviersy/large-scale-data-cleaning/actions)
+[![Last Commit](https://img.shields.io/github/last-commit/chanxaviersy/large-scale-data-cleaning)](https://github.com/chanxaviersy/large-scale-data-cleaning)
+
+---
+
 # 大规模用户行为数据清洗管道
 
 > 千万级记录的端到端数据清洗与质量提升流水线
