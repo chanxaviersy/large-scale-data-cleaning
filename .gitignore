@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# 数据 / 数据库
+data/raw/
+data/*.parquet
+data/*.csv
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/*.duckdb
+data/*.pickle
+data/*.pkl
+data/*.npy
+data/*.npz
+
+# 大数据特有
+benchmarks/results/
+benchmarks/*.csv
+benchmarks/*.png
+benchmarks/*.jpg
+reports/*.xlsx
+reports/*.html
+outputs/*.csv
+outputs/*.png
+
+# 日志
+*.log
+logs/
+
+# 环境变量
+.env
+.env.local
+
+# 临时文件
+*.tmp
+*.bak
+nohup.out
