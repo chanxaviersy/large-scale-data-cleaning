@@ -1,7 +1,27 @@
 # 大规模数据清洗管道 - 依赖列表
-pandas>=2.0.0
-numpy>=1.24.0
-matplotlib>=3.7.0
-psutil>=5.9.0
-tqdm>=4.65.0
-polars>=0.20.0  # 可选：用于性能对比
+#
+# 使用 pip install -r requirements.txt 安装
+
+# === 核心依赖（必须）===
+pandas>=2.0.0,<3.0.0
+numpy>=1.24.0,<2.1.0
+
+# === 性能优化（可选二选一）===
+# polars>=0.20.0,<1.0.0  # 高速 DataFrame（推荐替代 Pandas 做 ETL）
+# modin>=0.23.0          # Pandas API，底层自动并行（CPU密集场景）
+
+# === 内存 / 系统监控 ===
+psutil>=5.9.0,<6.0.0          # 内存 / CPU 监控（性能调优）
+
+# === 可视化 ===
+matplotlib>=3.7.0,<3.10.0
+
+# === 工具 ===
+tqdm>=4.65.0,<4.67.0          # 进度条
+
+# === 可选：数据质量 ===
+# great-expectations>=0.18.0  # 质量断言（推荐生产使用）
+# pandera>=0.18.0            # DataFrame schema 校验
+
+# === 可选：基准测试 ===
+# pytest-benchmark>=4.0.0    # 自动性能回归测试
