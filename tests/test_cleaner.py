@@ -49,9 +49,9 @@ def test_handle_missing_fills_value_median(sample_dirty_data):
     assert result["value"].notna().all()
     # 填充值 = 删除 user_id 空后剩余的 value 中位数
     non_null = sample_dirty_data[sample_dirty_data["user_id"].notna()]["value"].dropna()
-    expected_median = non_null.median()
-    # 第 2 行（index=2）的 value 原本是 NaN，现在应为中位数
-    assert result["value"].iloc[1] == expected_median
+    expected_median = float(non_null.median())
+    # 第 2 行（index=2，user_id=3）的 value 原本是 NaN，现在应为中位数
+    assert result.loc[result["user_id"] == 3, "value"].iloc[0] == pytest.approx(expected_median)
 
 
 def test_handle_missing_fills_value_mean(sample_dirty_data):
@@ -81,35 +81,41 @@ def test_handle_outliers_range_clip(sample_dirty_data):
 
 
 def test_fix_types_user_id_int(sample_dirty_data):
-    """user_id 应转为 int64"""
-    from cleaner import fix_types
+    """user_id 应转为 int64（先处理缺失）"""
+    from cleaner import fix_types, handle_missing
 
-    result = fix_types(sample_dirty_data)
+    df = handle_missing(sample_dirty_data)
+    result = fix_types(df)
     assert result["user_id"].dtype == np.int64
 
 
 def test_fix_types_timestamp_datetime(sample_dirty_data):
-    """timestamp 应转为 datetime"""
-    from cleaner import fix_types
+    """timestamp 应转为 datetime（先处理缺失）"""
+    from cleaner import fix_types, handle_missing
 
-    result = fix_types(sample_dirty_data)
+    df = handle_missing(sample_dirty_data)
+    result = fix_types(df)
     assert pd.api.types.is_datetime64_any_dtype(result["timestamp"])
 
 
 def test_apply_business_rules_filters_invalid_os(sample_dirty_data):
-    """device_os 不在白名单应被过滤"""
-    from cleaner import apply_business_rules
+    """device_os 不在白名单应被过滤（需先 fix_types）"""
+    from cleaner import apply_business_rules, fix_types, handle_missing
 
-    result = apply_business_rules(sample_dirty_data)
+    df = handle_missing(sample_dirty_data)
+    df = fix_types(df)
+    result = apply_business_rules(df)
     # Symbian 不在默认白名单
-    assert "Symbian" not in result["device_os"].values
+    assert "Symbian" not in result["device_os"].astype(str).values
 
 
 def test_apply_business_rules_filters_old_timestamp(sample_dirty_data):
-    """timestamp 太早应被过滤"""
-    from cleaner import apply_business_rules
+    """timestamp 太早应被过滤（需先 fix_types）"""
+    from cleaner import apply_business_rules, fix_types, handle_missing
 
-    result = apply_business_rules(sample_dirty_data)
+    df = handle_missing(sample_dirty_data)
+    df = fix_types(df)
+    result = apply_business_rules(df)
     assert result["timestamp"].min() >= pd.Timestamp("2020-01-01")
 
 
