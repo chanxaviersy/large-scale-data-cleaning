@@ -114,3 +114,8 @@ Demo 会：
 ## License
 
 MIT
+## 📚 更多文档
+
+- [项目架构](docs/architecture.md)
+- [使用指南](docs/usage.md)
+- [开发笔记](docs/dev-notes.md)
